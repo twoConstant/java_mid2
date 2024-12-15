@@ -1,3 +1,32 @@
+## 목차
+1. [Generic1](#generic1)
+   - [기존의 문제점](#기존의-문제점)
+   - [제네릭의 장점](#제네릭의-장점)
+   - [제네릭 선언 방법](#제네릭-선언-방법)
+   - [제네릭 생성 방법](#제네릭-생성-방법)
+   - [타입 매개변수(T)의 표기법](#타입-매개변수t의-표기법)
+   - [용어 정리](#용어-정리)
+   - [문제](#문제)
+   - [문제 1 풀이](#문제-1-풀이)
+   - [문제 2 풀이](#문제-2-풀이)
+
+2. [Generic2](#generic2)
+   - [Animal](#animal)
+   - [Dog](#dog)
+   - [Cat](#cat)
+   - [HospitalV0 : 그냥 Dog, Cat 별 따로 클래스를 생성](#hospitalv0--그냥-dog-cat-별-따로-클래스를-생성)
+   - [HospitalV1 : 다형성을 이용한 방식](#hospitalv1--다형성을-이용한-방식)
+   - [HospitalV2 : 제네릭을 이용한 방식](#hospitalv2--제네릭을-이용한-방식)
+   - [HospitalV3 : 타입매개변수 타입 상한 걸기<T extends Animal>](#hospitalv3--타입매개변수-타입-상한-걸기t-extends-animal)
+
+3. [Generic Method](#generic-method)
+   - [선언 방식](#선언-방식)
+   - [호출 방식](#호출-방식)
+   - [타입 매개변수 타입 결정 시점](#타입-매개변수-타입-결정-시점)
+   - [문제](#문제-1)
+   - [HospitalV4 : 제네릭 메서드 적용](#hospitalv4--제네릭-메서드-적용)
+
+
 # Generic1
 
 ### 기존의 문제점
@@ -146,6 +175,8 @@ public class Pair<K, V> {
     }
 }
 ```
+
+
 # Generic2
 
 > 아래의 Animal 부모와 Dog, Cat 자식이 있을때 Hospital Class를 Object를 사용한 방식, 제네릭 타입으로 변경한 방식을 기술하고 장단점을 기술하시오.
@@ -347,3 +378,66 @@ public class HospitalV3<T extends Animal> {
 ```
 
 - 장점 : 타입 안전성과 코드 중복을 다 잡았다.
+
+
+
+# Generic Method
+
+> 제네릭 타입을 클래스 전체가 아닌 특정 메서드 단위로 도입할때 사용되며 해당 매서드 호출 시점에서 매개변수의 타입에 따라 제네릭 타입이 결정되고 호출된다.
+> 
+
+### 선언 방식
+
+```java
+// 스태틱 메서드
+public static <T> T staticGenericMethod(T t){return t}; 
+// 인스턴스 메서드
+public <T> T instanceGenericMethod(T t){return t};
+```
+
+### 호출 방식
+
+```java
+Class.<Integer>staticGenericMethod(num);
+instance.<Integer>instanceGenericMethod(num);
+
+// 추론 방식
+Class.staticGenericMethod(num);
+```
+
+### 타입 매개변수 타입 결정 시점
+
+- 제네릭 타입(Class 단위로 제네릭이 선언된 경우) : 객체를 생성하는 시점에 타입 결정
+    - `new GenericCalss<Integer>()`
+- 제네릭 메서드(메서드 단위로 제네릭이 선언된 경우) : 메서드를 호출하는 시점에서 타입 결정
+    - `GenericMethod.<Integer>genericMetod(num)`
+
+### 문제
+
+1. 제네릭 타입에서 제네릭 메서드 선언이 가능하다. 참 거짓
+2. `public T genericMethod(T t)` 는 제너릭 메서드이다. 참 거짓
+3. 제네릭 타입에서 인스턴스 제네릭 메서드가 정의된경우 타입 매개변수는 어느것이 우선순위일까?
+
+1. 세모
+    1. static method  : 불가능
+    2. instance method : 가능
+2. 거짓, 이건 그냥 메서드이다 .다면 타입 매개변수가 선언된 것 뿐이다. 아래에 <T>가 있는게 제네릭 메서드이다.
+    1. `public <T> T genericMethod(T t)`  
+3. 제네릭 메서드가 우선이다. 즉 제네릭 타입이 Integer로 생성되었다 하더라고 인스턴스 메서드가 String으로 호출되었다면 String으로 메서드 관련 작업을 수행한다.
+
+### HospitalV4 : 제네릭 메서드 적용
+
+```java
+public class HospitalV4 {
+
+    public static <T extends Animal> void checkup(T animal) {
+        System.out.println("동물 이름: " + animal.getName());
+        System.out.println("동물 크기: " + animal.getSize());
+        animal.sound();
+    }
+
+    public static <T extends Animal> T getBigger(T a, T b) {
+        return a.getSize() > b.getSize() ? a : b;
+    }
+}
+```

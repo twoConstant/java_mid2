@@ -3,7 +3,7 @@ package java_mid2.generic2.hospital;
 import java_mid2.generic2.animal.Animal;
 
 public class HospitalV3<T extends Animal> {
-        private T animal;
+    private T animal;
 
     public void set(T animal) {
         this.animal = animal;
