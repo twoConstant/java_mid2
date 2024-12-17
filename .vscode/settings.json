@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "wildcard1",
+        "wildcard/practice1"
+    ],
+    "java.project.referencedLibraries": []
+}
