@@ -42,6 +42,13 @@
    
    - [문제](#문제)
 
+5- [컬렉션 프레임워크 - ArrayList](#컬렉션-프레임워크---arraylist)
+   
+   - [Array 시간복잡도](#array-시간복잡도)
+   - [Array의 단점](#array의-단점)
+   - [직접 구현하는 ArrayList1 - 시작](#직접-구현하는-arraylist1---시작)
+   - [ArrayList 시간 복잡도](#arraylist-시간-복잡도)
+
 # Generic1
 
 ### 기존의 문제점
@@ -455,8 +462,6 @@ public class HospitalV4 {
 }
 ```
 
-
-
 # WildCard
 
 > `*` 와 `?` 기호로 사용되며 타입 인자가 “정해진 제네릭 타입”을 전달 받아 활용할 때 사용한다. 좀더 직관적으로 모든 타입을 받을 수 있는 타입이락 생각하면 된다.
@@ -490,13 +495,17 @@ public class HospitalV4 {
       return value;
   }
   ```
-
+  
   // 이따구로 사용할 수 없다.
   public static ? getBoxValue2(Box<?> box) {
+  
       ? value = box.get();
       return value;
+  
   }
-
+  
+  ```
+  
   ```
 
 ### 상한 와일드카드
@@ -523,3 +532,54 @@ public class HospitalV4 {
    2. 와일드카드 메서드 : ?는 그냥 아무 타입이나 다 받을 수 있다는 의미로 제네릭과 관련이 없다. ? = Object를 갈긴것돠 동일하다.
 
 4. 참, ?는 제네릭 타입인 T와 관련된 문법으로 단독으로 사용될 수 없다.
+
+
+
+# 컬렉션 프레임워크 - ArrayList
+
+### Array 시간복잡도
+
+- 조회 : O(1)
+- 끝자리 삽입 : O(1)
+- 중간 삽입 : O(n)
+- 끝자리 삭제 : O(1)
+- 중간 삭제 : O(n)
+
+### Array의 단점
+
+- 배열의 길이 동적으로 변경 할 수 없기 때문에 너무 크게 생성하면 불필요한 메모리가 낭비되고 너무 작게 생성하면 오류가 발생 할 수 있다.
+
+### 직접 구현하는 ArrayList1 - 시작
+
+- 아래의 조건에 맞게 ArraysListV1를 구현하시오. 단 원소는 Object 자료형이다.
+  
+  ```markdown
+  // 생성자
+  1. 기본 생성자, 배열의 크기는 기본 5로 고정
+  2. 매개변수로 int를 받는 경우 해당 크기로 배열 생성
+  
+  // 메서드
+  public int size();
+  public void add(Object e);
+  public Object get(int index);
+  public Object set(int index, Object e);
+  public int indexOf(Object o);
+  @Override
+  public void toString();
+  ```
+
+- 동적 배열 할당 기능을 추가하여 ArrayListV2를 구현하시오. 제공 기능은 MyArrayListV1과 동일
+
+- 특정 인덱스의 원소를 삭제(remove) 추가(add(index, data)) 기능을 추가하여 MyArrayListV3를 구현하시오.
+
+- 제네릭을 도입하여 MyArrayListV4를 구현하시오.
+  
+  - 제네릭은 new 키워드에 사용할 수 없다. 그래서 기본적으로 Object[] 을 사용하되 안에 들어가고 나오는 원소의 타입만 타입변수로 관리될 수 있도록 신경써주면된다.
+
+- 주의사항
+  
+  - 삽입, 삭제시에는 항상 size가 변경된다는 것을 유념하자.
+
+### ArrayList 시간 복잡도
+
+- 기본적으로 Array와 동일하나 삽입시에 새로운 길이의 배열로 갱신될 경우 O(n)이 될 수 있다.
