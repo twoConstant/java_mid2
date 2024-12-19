@@ -1,6 +1,6 @@
-package java_mid2.linkedList.mains;
+package java_mid2.collection.list.linkedList.mains;
 
-import java_mid2.linkedList.linkedLists.Node;
+import java_mid2.collection.list.linkedList.linkedLists.Node;
 
 public class MainForNode {
     public static void main(String[] args) {

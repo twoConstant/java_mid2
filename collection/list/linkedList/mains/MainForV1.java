@@ -1,10 +1,10 @@
-package java_mid2.arraylist.mains;
+package java_mid2.collection.list.linkedList.mains;
 
-import java_mid2.arraylist.MyArrayLists.MyArrayListV1;
+import java_mid2.collection.list.linkedList.linkedLists.MyLinkedListV1;
 
-public class MainV1 {
+public class MainForV1 {
     public static void main(String[] args) {
-        MyArrayListV1 list = new MyArrayListV1();
+        MyLinkedListV1 list = new MyLinkedListV1();
         System.out.println("==데이터 추가==");
         System.out.println(list);
         list.add("a");
@@ -30,6 +30,5 @@ public class MainV1 {
         //범위 초과, 사이즈가 늘어나지 않으면 예외 발생
         list.add("f");
         System.out.println(list);
-
     }
 }

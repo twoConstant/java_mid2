@@ -1,8 +1,8 @@
-package java_mid2.arraylist.MyArrayLists;
+package java_mid2.collection.list.arraylist.MyArrayLists;
 
 import java.util.Arrays;
 
-public class MyArrayListV3 {
+public class MyArrayListV4<T> {
     private static final int DEFUALT_CAPACITY = 5;
 
     private Object[] arr;
@@ -10,12 +10,12 @@ public class MyArrayListV3 {
 
     // // 생성자
     // 1. 기본 생성자, 배열의 크기는 기본 5로 고정
-    public MyArrayListV3() {
+    public MyArrayListV4() {
         arr = new Object[DEFUALT_CAPACITY];
     }
 
     // 2. 매개변수로 int를 받는 경우 해당 크기로 배열 생성
-    public MyArrayListV3(int capacity) {
+    public MyArrayListV4(int capacity) {
         arr = new Object[capacity];
     }
 
@@ -26,7 +26,7 @@ public class MyArrayListV3 {
     }
 
     // public void add(Object o);  끝에 추가
-    public void add(Object o) {
+    public void add(T o) {
         // 끝자리인경우 추가 길이 갱신
         if(size == arr.length) {
             grow();
@@ -37,7 +37,7 @@ public class MyArrayListV3 {
     }
 
     // 코드 추가, 특정 인덱스에 원소추가
-    public void add(int index, Object o) {
+    public void add(int index, T o) {
         if(size == arr.length) {
             grow();
         }
@@ -48,21 +48,21 @@ public class MyArrayListV3 {
     }
 
     // public Object get(int index);
-    public Object get(int index) {
-        return arr[index];
+    public T get(int index) {
+        return (T)arr[index];
     }
 
     
 
     // public Object set(int index, Object o);
-    public Object set(int index, Object o) {
-        Object oldElement = arr[index];
+    public T set(int index, T o) {
+        T oldElement = (T)arr[index];
         arr[index] = o;
         return oldElement;
     }
 
     // public int indexOf(Object o);
-    public int indexOf(Object o) {
+    public int indexOf(T o) {
         for(int i = 0; i < size; i++) {
             if(!arr[i].equals(o)) {
                 continue;
@@ -80,8 +80,8 @@ public class MyArrayListV3 {
     }
 
     // 코드 추가, 특정 인덱스 삭제, 삭제 대상 반환
-    public Object remove(int index) {
-        Object deletedElement = arr[index];
+    public T remove(int index) {
+        T deletedElement = (T)arr[index];
         shiftLeftFrom(index);
         size--;
         return deletedElement;

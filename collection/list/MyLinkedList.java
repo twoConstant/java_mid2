@@ -1,7 +1,6 @@
-package java_mid2.linkedList.linkedLists;
+package java_mid2.collection.list;
 
-// 제네릭 적용용
-public class MyLinkedListV3<T> {
+public class MyLinkedList<T> implements MyList<T> {
     private Node<T> first;
     private int size;
 
@@ -38,7 +37,7 @@ public class MyLinkedListV3<T> {
         }
     }
 
-    public Node<T> remove(int index) {
+    public T remove(int index) {
         if(index != 0) {
             Node<T> removeTargetNode = getNode(index);
             Node<T> prevNode = getNode(index - 1);
@@ -48,7 +47,7 @@ public class MyLinkedListV3<T> {
             removeTargetNode.next = null;
             removeTargetNode.item = null; // 항목도 null로 변경하면서 그냥 싹 null
             size--;
-            return removeTargetNode;
+            return removeTargetNode.item;
 
         } else {    // head를 삭제하는 경우
             Node<T> oldHeadNode = first;
@@ -56,7 +55,7 @@ public class MyLinkedListV3<T> {
             oldHeadNode.next = null;
             oldHeadNode.item = null;
             size--;
-            return oldHeadNode;
+            return oldHeadNode.item;
         }
 
     }
@@ -115,5 +114,30 @@ public class MyLinkedListV3<T> {
                 "first=" + first +
                 ", size=" + size +
                 '}';
+    }
+
+    public static class Node<T>{
+        public T item;
+        public Node<T> next;
+    
+        public Node(T o) {
+            item = o;
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            Node x = this;
+            sb.append("[");
+            while (x != null) {
+                sb.append(x.item);
+                if (x.next != null) {
+                    sb.append("->");
+                }
+                x = x.next;
+            }
+            sb.append("]");
+            return sb.toString();
+        }
     }
 }

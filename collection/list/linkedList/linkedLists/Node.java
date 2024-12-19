@@ -1,4 +1,4 @@
-package java_mid2.linkedList.linkedLists;
+package java_mid2.collection.list.linkedList.linkedLists;
 
 public class Node<T> {
     public T item;

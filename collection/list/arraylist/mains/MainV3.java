@@ -1,6 +1,6 @@
-package java_mid2.arraylist.mains;
+package java_mid2.collection.list.arraylist.mains;
 
-import java_mid2.arraylist.MyArrayLists.MyArrayListV3;
+import java_mid2.collection.list.arraylist.MyArrayLists.MyArrayListV3;
 
 public class MainV3 {
     public static void main(String[] args) {

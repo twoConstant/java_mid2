@@ -1,37 +1,36 @@
-package java_mid2.linkedList.linkedLists;
+package java_mid2.collection.list.linkedList.linkedLists;
 
-// 중간 삽입, 삭제 적용 메서드드
-public class MyLinkedListV2 {
-    private Node first;
+// 제네릭 적용용
+public class MyLinkedListV3<T> {
+    private Node<T> first;
     private int size;
 
-    public void add(Object o) {
+    public void add(T o) {
         // 만약 첫 노드라면 Node first 갱신
         if(size == 0) {
-            first = new Node(o);
+            first = new Node<>(o);
             size++;
             return;
         }
 
         // 첫 노드가 아닌경우, 마지막 노드의 Next에 추가
-        getLastNode().next = new Node(o);
+        getLastNode().next = new Node<>(o);
         size++;
     }
 
-    public void add(int index, Object o) {
-        Node newNode = new Node(o);
-        
+    public void add(int index, T o) {
+        Node<T> newNode = new Node<>(o);
 
         if(index == 0) {    // head인경우우 first만 변경경
-            Node oldHeadNode = first;
+            Node<T> oldHeadNode = first;
             newNode.next = oldHeadNode;
             first = newNode;
             size++;
             return;
         } else {    // 중간 노드 삽입인경우
-            Node prevNode = getNode(index - 1);
+            Node<T> prevNode = getNode(index - 1);
             // Node nextNode = getNode(index);
-            Node nextNode = prevNode.next;    // 이렇게 접근하는게 성능상 유리하다.
+            Node<T> nextNode = prevNode.next;    // 이렇게 접근하는게 성능상 유리하다.
             prevNode.next = newNode;
             newNode.next = nextNode;
             size++;
@@ -39,60 +38,62 @@ public class MyLinkedListV2 {
         }
     }
 
-    public Node remove(int index) {
+    public T remove(int index) {
         if(index != 0) {
-            Node removeTargetNode = getNode(index);
-            Node prevNode = getNode(index - 1);
+            Node<T> removeTargetNode = getNode(index);
+            Node<T> prevNode = getNode(index - 1);
             // Node nextNode = getNode(index + 1);
-            Node nextNode = removeTargetNode.next;
+            Node<T> nextNode = removeTargetNode.next;
             prevNode.next = nextNode;
             removeTargetNode.next = null;
             removeTargetNode.item = null; // 항목도 null로 변경하면서 그냥 싹 null
             size--;
-            return removeTargetNode;
+            return removeTargetNode.item;
 
         } else {    // head를 삭제하는 경우
-            Node oldHeadNode = first;
+            Node<T> oldHeadNode = first;
             first = first.next;
             oldHeadNode.next = null;
             oldHeadNode.item = null;
             size--;
-            return oldHeadNode;
+            return oldHeadNode.item;
         }
 
     }
 
-    public Node getLastNode() {
-        Node x = first;
+    public Node<T> getLastNode() {
+        Node<T> x = first;
         // 특정 노드의 다음 노드가 있으면 다음 노드로 이동
         while(x.next != null) {
             x = x.next;
         }
         return x;
     }
-    public Object set(int index, Object o) {
-        Object oldItem = getNode(index).item;
+    public T set(int index, T o) {
+        Node<T> oldNode = getNode(index);
+        T oldItem = oldNode.item;
         // 교체하기
         getNode(index).item = o;
         return oldItem;
     }
 
-    public Object get(int index) {
-        return getNode(index).item;
+    public T get(int index) {
+        Node<T> node = getNode(index);
+        return node.item;
     }
 
-    private Node getNode(int index) {
+    private Node<T> getNode(int index) {
         // index번 넘어가서 해당 노드 반환환
-        Node x = first;
+        Node<T> x = first;
         for(int i = 0; i < index; i++) {
             x = x.next;
         }
         return x;
     }
 
-    public int indexOf(Object o) {
+    public int indexOf(T o) {
         // 끝까지 돌면서 Node.item == o일떄 해당 index 반환
-        Node x = first;
+        Node<T> x = first;
         for(int i = 0; i < size; i++) {
             if(x.item.equals(o)) {
                 return i;

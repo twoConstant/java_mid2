@@ -1,4 +1,4 @@
-package java_mid2.arraylist.MyArrayLists;
+package java_mid2.collection.list.arraylist.MyArrayLists;
 
 import java.util.Arrays;
 
