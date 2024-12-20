@@ -13,7 +13,6 @@
    - [문제 2 풀이](#문제-2-풀이)
 
 2. [Generic2](#generic2)
-   
    - [Animal](#animal)
    - [Dog](#dog)
    - [Cat](#cat)
@@ -21,33 +20,32 @@
    - [HospitalV1 : 다형성을 이용한 방식](#hospitalv1--다형성을-이용한-방식)
    - [HospitalV2 : 제네릭을 이용한 방식](#hospitalv2--제네릭을-이용한-방식)
    - [HospitalV3 : 타입매개변수 타입 상한 걸기<T extends Animal>](#hospitalv3--타입매개변수-타입-상한-걸기t-extends-animal)
-
 3. [Generic Method](#generic-method)
-   
    - [선언 방식](#선언-방식)
    - [호출 방식](#호출-방식)
    - [타입 매개변수 타입 결정 시점](#타입-매개변수-타입-결정-시점)
    - [문제](#문제-1)
    - [HospitalV4 : 제네릭 메서드 적용](#hospitalv4--제네릭-메서드-적용)
-
 4. [WildCard](#wildcard)  
-   
    - [제네릭 메서드 vs 와일드카드](#제네릭-메서드-vs-와일드카드)      
-   
    - [제네릭메서드를 사용 할 수 밖에 없는 경우](#제네릭메서드를-사용-할-수-밖에-없는-경우)  
-   
    - [상한 와일드카드](#상한-와일드카드)  
-   
    - [하한 와일드카드](#하한-와일드카드)  
-   
    - [문제](#문제)
-
-5- [컬렉션 프레임워크 - ArrayList](#컬렉션-프레임워크---arraylist)
-   
+5. [컬렉션 프레임워크 - ArrayList](#컬렉션-프레임워크---arraylist)
    - [Array 시간복잡도](#array-시간복잡도)
    - [Array의 단점](#array의-단점)
    - [직접 구현하는 ArrayList1 - 시작](#직접-구현하는-arraylist1---시작)
    - [ArrayList 시간 복잡도](#arraylist-시간-복잡도)
+6. [컬렉션 프레임워크 - LinkedList](#컬렉션-프레임워크---linkedlist)
+    - [LinkedList 시간복잡도(단방향 LinkedList의 경우)](#linkedlist-시간복잡도단방향-linkedlist의-경우)
+    - [LinkedList의 장점과 단점](#linkedlist의-장점과-단점)
+    - [단방향 LinkedList의 구현](#단방향-linkedlist의-구현)
+6. [컬렉션 프레임워크 - List](#컬렉션-프레임워크---list)
+    - [리스트 추상화1 - 인터페이스 도입](#리스트-추상화1---인터페이스-도입)
+    - [리스트의 추상화](#리스트의-추상화)
+    - [전략패턴](#전략패턴)
+
 
 # Generic1
 
@@ -583,3 +581,139 @@ public class HospitalV4 {
 ### ArrayList 시간 복잡도
 
 - 기본적으로 Array와 동일하나 삽입시에 새로운 길이의 배열로 갱신될 경우 O(n)이 될 수 있다.
+
+  # 컬렉션 프레임워크 - LinkedList
+
+### LinkedList 시간복잡도(단방향 LinkedList의 경우)
+
+- 조회 : O(1)
+- 끝 자라 삽입 : O(n)
+- 첫 자리 삽입 : O(1)
+- 끝 자리 삭제 : O(n)
+- 중간 자리 삭제 : O(n)
+
+### LinkedList의 장점과 단점
+
+- 장점
+    - 끝이 아닌 자리의 삽입, 삭제를 빨리하기 위해 사용한다.
+- 단점
+    - 조회 성능이 좋지않다.
+
+### 단방향 LinkedList의 구현
+
+> 항상 head에 대한 조작인와 3자 노드 prev, next, new or targetNode의 3자 대면을 기억하자.
+> 
+- Node Class 구현
+    
+    ```markdown
+    // 생성자의 매개변수로 Object item을 받는다.
+    // toString();
+    ```
+    
+- Node로 이뤄진 다양한 메서드를 구현하시오.(일단 static method로 구현한다.)
+    
+    ```markdown
+    static void printAll(Node first) : 모든 노드 탐색
+    static Node getLastNode(Node first) : 마지막 노드 조회
+    static Node getNode(Node first, int index) : 특정 index의 노드 조회
+    static void add(Node first, Object item) : 끝 노드에 노드에 데이터 추가
+    ```
+    
+- MyLinkedListV1를 구현하시오, 위의 메서드를 제공해야한다.
+    
+    ```markdown
+    public void add(Object o);
+    public Node getLastNode();
+    public Object set(int index, Obejct o);
+    public Object get(int index);
+    private getNode(int index);
+    public int indexOf(Object o);
+    public int size();
+    public string toString();
+    ```
+    
+- MyLinkedListV2를 구현하시오. 추가 메서드 : add(int index, Object o), Node remove(int index)
+- MyLinkedListV3를 구현하시오, 제네릭을 적용하시오.
+
+# 컬렉션 프레임워크 - List
+
+> List 자료형은 순서가 있고 중복을 허용하는 자료형으로 구현체로는 ArrayList, LinkedList가 있다.
+> 
+
+### 리스트 추상화1 - 인터페이스 도입
+
+- 내가 작성한 MyArrayList와 MyLinkedList의 공통 메서드를 MyList로 만들자
+    
+    ```java
+    // 공통 메서드
+    size
+    add
+    add
+    get
+    set
+    remove
+    indexOf
+    ```
+    
+    ```java
+    public interface List<T> {   // 동일하게 제네릭으로 선언한다.
+    }
+    ```
+    
+- 인터페이스를 정의하는 것 까진 ok 근데 이걸 어떻게 임플시키지?
+    
+    ```java
+    public class MyArrayList<T> implements List<T> {
+    }
+    ```
+    
+
+### 리스트의 추상화
+
+- 아래와 같은 BatchProcess가 있다. 해당 코드를 다형성을 이용해 유지보수가 편한 코드로 변경하고 그 근거를 설명하시오.
+    
+    ```java
+    public class BatchProcessorV1 {
+        
+        private final MyArrayList<Integer> list = new MyArrayList<>();
+        
+        public void logic(int size) {
+            for(int i = 0; i < size; i++) {
+                list.add(0, i);
+            }
+        }
+    }
+    ```
+    
+- 유지 보수를 위한 인터페이스(MyList)에 의존하도록 변경
+    
+    ```java
+    public class BatchProcessorV3 {
+        
+        // 구현체가 아닌 인터페이스에 의존
+        private final MyList<Integer> list;
+        
+        // 생성자의 매개변수로 구현체를 넣어 언제든 변경 할 수 있다.
+        public BatchProcessorV3(MyList<Integer> myList) {
+            this.list = myList;
+        }
+    
+        public void logic(int size) {
+            for(int i = 0; i < size; i++) {
+                list.add(0, i);
+            }
+        }
+    }
+    ```
+    
+    - 인터페이스인 List에 의존하면서 이후 List 인터페이스를 임플 받은 더 좋은 성능을 가진 구현체들을 만들어서 갈아끼워만주면 기존의 메서드를 수정하지 않고 그대로 사용 할 수 있다.
+    - 그리고 각 구현체의 고유 기능 사용시에는 해당 구현체인 하위 타입으로 다운캐스팅하여 사용 하면 된다. => 전략패턴
+- 각 구현체의 logic 메서드의 성능을 비교하시오.
+
+### 전략패턴
+
+> 객채의 특정 행위를 인터페이스로 정의하고, 이를 구현하는 여러 클래스들을 만들어 동적으로 객체의 행위를 변경할 수 있도록 하는 디자인 패턴
+> 
+- 위에서 만든 BatchProcessor 처럼 구현체에 의존하는 것이아니라 myList라는 인터페이스에 의존하면서 런타임 시점에서 구현체가 갈아끼워지며 동적으로 객체의 행위를 변경 할 수 있게 되는것이다.
+- 컴파일 의존 관계 : 특정 행위가 인터페이스에 의존
+- 런타임 의존 관계 : 특정 행위가 실제 구현된 객체에 의존
